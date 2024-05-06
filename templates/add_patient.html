@@ -75,9 +75,19 @@
                     <input class="input" type="text" name="zipcode" id="zipcode" placeholder="Zip Code">
                     <small>Error message</small>
                 </div>
-                <div class="form-control text">
+                <div class="form-control select">
                     <label for="bloodgroup" class="label">Blood Group</label>
-                    <input class="input" type="text" name="bloodgroup" id="bloodgroup" placeholder="Blood Group">
+                    <select class="input" name="bloodgroup" id="bloodgroup">
+                        <option value="" selected disabled>Select Blood Group</option>
+                        <option value="A+">A+</option>
+                        <option value="A-">A-</option>
+                        <option value="B+">B+</option>
+                        <option value="B-">B-</option>
+                        <option value="AB+">AB+</option>
+                        <option value="AB-">AB-</option>
+                        <option value="O+">O+</option>
+                        <option value="O-">O-</option>
+                    </select>
                     <small>Error message</small>
                 </div>
                 <div class="form-control text">
@@ -90,16 +100,18 @@
                     <small>Error message</small>
                 </div>
           
-                <div class="form-control text">
+                <div class="form-control select">
                     <label for="doctor" class="label">Doctor Assigned</label>
-                    <select name="doctor" id="doctor">
-                        <option value="existing">Select from existing doctors</option>
-                        {% for doctor in doctors %}
-                            <option value="{{ doctor.id }}">{{ doctor.name }}</option>
-                        {% endfor %}
+                    <select class="input" name="doctor" id="doctor">
+                        <option value="" selected disabled>Select Doctor</option>
+                        <option value="Dr. Smith">Dr. Smith</option>
+                        <option value="Dr. Johnson">Dr. Johnson</option>
+                        <option value="Dr. Williams">Dr. Williams</option>
+                        <!-- Add more options as needed -->
                     </select>
                     <small>Error message</small>
                 </div>
+                
                 
                 
                 <br>

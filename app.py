@@ -69,28 +69,27 @@ def add_patient():
         prevcondition = request.form['prevcondition']
         image = request.files['patientimage']
 
-        patient = Patient(id=new_id, firstname=firstname, lastname=lastname, email=email, phone=phone, dob=dob, 
-                          address=address, city=city, state=state, zipcode=zipcode, bloodgroup=bloodgroup, 
-                          gender=gender, doctor=doctor, prevcondition=prevcondition, image=image.filename)
-        
-        db.session.add(patient)
-        db.session.commit()
-        
-        # Create the directory if it doesn't exist
+        # Create the directories if they don't exist
         pdf_folder = os.path.join(app.static_folder, 'pdf')
         if not os.path.exists(pdf_folder):
             os.makedirs(pdf_folder)
         
-        # Create the directory if it doesn't exist
         image_folder = os.path.join(app.static_folder, 'images')
         if not os.path.exists(image_folder):
             os.makedirs(image_folder)
 
-        # Save the image to the specified folder
-        image_path = os.path.join(image_folder, image.filename)
+        # Rename and save the image
+        image_ext = image.filename.rsplit('.', 1)[-1].lower()
+        image_filename = f"{new_id}.{image_ext}"
+        image_path = os.path.join(image_folder, image_filename)
         image.save(image_path)
 
+        patient = Patient(id=new_id, firstname=firstname, lastname=lastname, email=email, phone=phone, dob=dob, 
+                          address=address, city=city, state=state, zipcode=zipcode, bloodgroup=bloodgroup, 
+                          gender=gender, doctor=doctor, prevcondition=prevcondition, image=image_filename)
         
+        db.session.add(patient)
+        db.session.commit()
 
         # Generate PDF
         pdf_file_path = generate_pdf(prevcondition, f"{new_id}_medical_history.pdf")
@@ -100,6 +99,7 @@ def add_patient():
         db.session.commit()
 
         return redirect('/')
+
     
 def calculate_age(dob):
     today = datetime.today()

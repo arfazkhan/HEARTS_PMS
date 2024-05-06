@@ -18,6 +18,9 @@
             font-size: .8rem;
             color: white;
             padding: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
         }
 
         body {
@@ -27,10 +30,6 @@
 
         header {
             background-color: #191d2b;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
             min-height: 30vh;
         }
 
@@ -81,6 +80,21 @@
         .status-btn.inactive {
             background-color: #e74c3c;
         }
+
+        .back-to-home-btn {
+            background-color: #191d2b;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .back-to-home-btn i {
+            margin-right: 5px;
+        }
     </style>
 </head>
 <body>
@@ -89,6 +103,9 @@
             <h2>View Patients</h2>
             <p>Here is the list of added patients</p>
         </div>
+        <button class="back-to-home-btn" onclick="window.location.href='/'">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </button>
     </header>
 
     <main>
@@ -134,21 +151,5 @@
             </table>
         </section>
     </main>
-
-
-    <script>
-        const statusBtns = document.querySelectorAll('.status-btn');
-
-        statusBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.classList.toggle('inactive');
-                if (btn.textContent === 'Active') {
-                    btn.textContent = 'Inactive';
-                } else {
-                    btn.textContent = 'Active';
-                }
-            });
-        });
-    </script>
 </body>
 </html>
