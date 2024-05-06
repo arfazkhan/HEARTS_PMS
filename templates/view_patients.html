@@ -142,7 +142,7 @@
                             {% endif %}
                         </td>
                         <td><img src="{{ url_for('static', filename='images/' + patient.image) }}" alt="Patient Image" style="width: 50px; height: 50px; border-radius: 50%;"></td>
-                        <td><button class="status-btn {% if patient.status == 'Inactive' %} inactive {% endif %}">{{ patient.status }}</button></td>
+                        <td><button class="status-btn">{{ patient.status }}</button></td>
                     </tr>
                     {% endfor %}
                 </tbody>
@@ -151,5 +151,30 @@
             </table>
         </section>
     </main>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const statusBtns = document.querySelectorAll('.status-btn');
+
+        statusBtns.forEach(btn => {
+            if (btn.textContent.trim() === '') {
+                btn.textContent = 'Active';
+            } else if (btn.textContent.trim() === 'Inactive') {
+                btn.classList.add('inactive');
+            }
+
+            btn.addEventListener('click', () => {
+                btn.classList.toggle('inactive');
+                if (btn.textContent === 'Active') {
+                    btn.textContent = 'Inactive';
+                    btn.style.backgroundColor = '#e74c3c';
+                } else {
+                    btn.textContent = 'Active';
+                    btn.style.backgroundColor = '#00dd5c';
+                }
+            });
+        });
+    });
+</script>
 </body>
+
 </html>
