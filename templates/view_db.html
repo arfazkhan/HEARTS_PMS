@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Database</title>
+</head>
+<body>
+    {% for table, data in tables.items() %}
+        <h2>{{ table }}</h2>
+        <table border="1">
+            <thead>
+                <tr>
+                    {% for column in data[0].__table__.columns %}
+                        <th>{{ column.name }}</th>
+                    {% endfor %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in data %}
+                    <tr>
+                        {% for column in row.__table__.columns %}
+                            <td>{{ getattr(row, column.name) }}</td>
+                        {% endfor %}
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endfor %}
+</body>
+</html>
